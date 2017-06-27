@@ -15,7 +15,7 @@ export interface RemoveOptions {
 }
 
 export interface SecureStorageApi {
-  get(arg: GetOptions): Promise<any>;
-  set(arg: SetOptions): Promise<boolean>;
-  remove(arg: RemoveOptions): Promise<boolean>;
+  get(arg: GetOptions): any;
+  set(arg: SetOptions): boolean;
+  remove(arg: RemoveOptions): boolean;
 }

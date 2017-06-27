@@ -1,4 +1,4 @@
-# NativeScript Secure Storage plugin
+# NativeScript Secure Storage plugin (customized for RedLeaf's needs). Following is from the original author.
 
 * On __iOS__ we're leveraging the KeyChain using the [SAMKeychain](https://github.com/soffes/SAMKeychain) library,
 * On __Android__ we're using [Hawk](https://github.com/orhanobut/hawk) library which internally uses [Facebook conceal](https://github.com/facebook/conceal).

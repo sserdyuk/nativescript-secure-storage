@@ -11,22 +11,15 @@ export class SecureStorage implements SecureStorageApi {
     this.hawk = com.orhanobut.hawk.Hawk.init(utils.ad.getApplicationContext()).build();
   }
 
-  public get(arg: GetOptions): Promise<any> {
-    let that = this;
-    return new Promise((resolve, reject) => {
-      resolve(com.orhanobut.hawk.Hawk.get(arg.key));
-    });
+  public get(arg: GetOptions): any {
+    return(com.orhanobut.hawk.Hawk.get(arg.key));
   };
 
-  public set(arg: SetOptions): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      resolve(com.orhanobut.hawk.Hawk.put(arg.key, arg.value));
-    });
+  public set(arg: SetOptions): boolean {
+    return(com.orhanobut.hawk.Hawk.put(arg.key, arg.value));
   };
 
-  public remove(arg: RemoveOptions): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      resolve(com.orhanobut.hawk.Hawk.delete(arg.key));
-    });
+  public remove(arg: RemoveOptions): boolean {
+    return(com.orhanobut.hawk.Hawk.delete(arg.key));
   };
 }

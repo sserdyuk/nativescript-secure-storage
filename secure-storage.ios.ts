@@ -9,51 +9,41 @@ export class SecureStorage implements SecureStorageApi {
   constructor() {
   }
 
-  public get(arg: GetOptions): Promise<any> {
-    let that = this;
-    return new Promise((resolve, reject) => {
-      let query = SAMKeychainQuery.new();
-      query.service = arg.service || that.defaultService;
-      query.account = arg.key;
+  public get(arg: GetOptions): any {
+    let query = SAMKeychainQuery.new();
+    query.service = arg.service || this.defaultService;
+    query.account = arg.key;
 
-      try {
-        query.fetch();
-        resolve(query.password);
-      } catch (e) {
-        resolve(null);
-      }
-    });
+    try {
+      query.fetch();
+      return(query.password);
+    } catch (e) {
+      return(null);
+    }
   };
 
-  public set(arg: SetOptions): Promise<boolean> {
-    let that = this;
-    return new Promise((resolve, reject) => {
+  public set(arg: SetOptions): boolean {
+    // TODO optionally pass in accessibility
+    let accessibility = kSecAttrAccessibleAlwaysThisDeviceOnly;
+    SAMKeychain.setAccessibilityType(accessibility);
 
-      // TODO optionally pass in accessibility
-      let accessibility = kSecAttrAccessibleAlwaysThisDeviceOnly;
-      SAMKeychain.setAccessibilityType(accessibility);
+    let query = SAMKeychainQuery.new();
+    query.service = arg.service || this.defaultService;
+    query.account = arg.key;
+    query.password = arg.value;
 
-      let query = SAMKeychainQuery.new();
-      query.service = arg.service || that.defaultService;
-      query.account = arg.key;
-      query.password = arg.value;
-
-      resolve(query.save());
-    });
+    return(query.save());
   };
 
-  public remove(arg: RemoveOptions): Promise<boolean> {
-    let that = this;
-    return new Promise((resolve, reject) => {
-      let query = SAMKeychainQuery.new();
-      query.service = arg.service || that.defaultService;
-      query.account = arg.key;
+  public remove(arg: RemoveOptions): boolean {
+    let query = SAMKeychainQuery.new();
+    query.service = arg.service || this.defaultService;
+    query.account = arg.key;
 
-      try {
-        resolve(query.deleteItem());
-      } catch (e) {
-        resolve(false);
-      }
-    });
+    try {
+      return(query.deleteItem());
+    } catch (e) {
+      return(false);
+    }
   };
 }
