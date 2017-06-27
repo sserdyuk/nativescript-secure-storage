@@ -1,7 +1,7 @@
 .vscode
 .idea
-*.js
-*.js.map
+*/*.js
+*/*.js.map
 *.log
 !scripts/*.js
 demo/app/*.js
